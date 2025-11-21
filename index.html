@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Haileybury Bhaluka Snack Campaign</title>
+  <title>Haileybury Bhaluka Canteen System</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
     :root {
@@ -24,9 +24,9 @@
       font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
       background-color: #8b134a;
       background-image: url("hb-logo.png");
-      background-repeat: no-repeat;
-      background-position: center 80px;
-      background-size: 320px auto;
+      background-repeat: repeat;
+      background-size: 220px auto;
+      background-position: 0 0;
       background-attachment: fixed;
       color: var(--text);
       line-height: 1.5;
@@ -118,8 +118,6 @@
       .layout { grid-template-columns: minmax(0, 1fr); }
       .addr { text-align: left; }
     }
-
-    /* Left panel: login + info */
 
     .panel {
       background: #ffffff;
@@ -251,7 +249,28 @@
       color: #b91c1c;
     }
 
-    /* Right side: portals */
+    .schedule-box {
+      margin-top: 10px;
+      padding: 9px 10px;
+      border-radius: 12px;
+      background: #f9fafb;
+      border: 1px dashed #e5e7eb;
+      font-size: 11px;
+    }
+
+    .schedule-title {
+      font-weight: 600;
+      font-size: 12px;
+      margin-bottom: 4px;
+    }
+
+    .schedule-list {
+      list-style: none;
+      display: grid;
+      gap: 2px;
+    }
+
+    /* portals */
 
     .portal {
       background: #ffffff;
@@ -272,9 +291,7 @@
       margin-bottom: 8px;
     }
 
-    .portal-header h2 {
-      font-size: 18px;
-    }
+    .portal-header h2 { font-size: 18px; }
 
     .pill {
       font-size: 11px;
@@ -312,10 +329,7 @@
 
     .item-name { font-weight: 600; }
 
-    .item-meta {
-      font-size: 11px;
-      color: var(--muted);
-    }
+    .item-meta { font-size: 11px; color: var(--muted); }
 
     .price {
       font-weight: 700;
@@ -336,10 +350,7 @@
     .badge.ice { background: #e0f2fe; color: #0369a1; }
     .badge.snack { background: #fef3c7; color: #92400e; }
 
-    .item-card button {
-      justify-self: flex-start;
-      margin-top: 4px;
-    }
+    .item-card button { justify-self: flex-start; margin-top: 4px; }
 
     .item-out {
       position: absolute;
@@ -370,17 +381,13 @@
       margin-bottom: 6px;
     }
 
-    .cart-list span.qty {
-      font-weight: 600;
-    }
+    .cart-list span.qty { font-weight: 600; }
 
     .total {
       font-size: 13px;
       font-weight: 600;
-      margin-bottom: 8px;
+      margin-bottom: 6px;
     }
-
-    /* Student account overview */
 
     .account-summary {
       display: grid;
@@ -468,9 +475,7 @@
       cursor: pointer;
     }
 
-    .admin-actions button:hover {
-      background: #eef2ff;
-    }
+    .admin-actions button:hover { background: #eef2ff; }
 
     .admin-form {
       margin-top: 10px;
@@ -497,7 +502,7 @@
         <img src="hb-logo.png" alt="Haileybury Bhaluka logo">
       </div>
       <div>
-        <div class="brand-text-main">Haileybury Bhaluka Snack Campaign</div>
+        <div class="brand-text-main">Haileybury Bhaluka Canteen</div>
         <div class="brand-text-sub">Supermarket-style snacks, drinks & ice-cream</div>
       </div>
     </div>
@@ -510,11 +515,11 @@
 
 <div class="page">
   <main class="layout">
-    <!-- LEFT: LOGIN -->
+    <!-- LEFT: LOGIN + SCHEDULE -->
     <section class="panel">
       <h2>Portal Login</h2>
       <p class="muted">
-        Students, parents and admins can log in here to order or manage items.
+        Students, parents and admins can log in to order or manage canteen items.
       </p>
 
       <div class="role-tabs" id="roleTabs">
@@ -539,6 +544,15 @@
         Checking canteen status…
       </div>
 
+      <div class="schedule-box">
+        <div class="schedule-title">Canteen schedule</div>
+        <ul class="schedule-list">
+          <li><strong>Open:</strong> Saturday, 1:00 PM – 1:30 PM</li>
+          <li><strong>Location:</strong> Academic Building, 2nd Floor, Room 227</li>
+          <li>Orders outside this time are collected in the next opening slot.</li>
+        </ul>
+      </div>
+
       <div id="loginMsg" class="alert"></div>
     </section>
 
@@ -550,11 +564,11 @@
           <div>
             <h2>Student Portal</h2>
             <p class="muted">
-              Order snacks, drinks & ice-cream during the Haileybury campaign.
+              Order snacks, drinks & ice-cream and see your balance.
             </p>
           </div>
           <div>
-            <span class="pill">Logged in as Student</span><br>
+            <span class="pill">Student account</span><br>
             <span class="logout-btn" onclick="logout()">Log out</span>
           </div>
         </div>
@@ -594,11 +608,11 @@
           <div>
             <h2>Parent Portal</h2>
             <p class="muted">
-              Order snacks or drinks for your child during the campaign.
+              Place orders for your child and choose to pay by cash or card.
             </p>
           </div>
           <div>
-            <span class="pill">Logged in as Parent</span><br>
+            <span class="pill">Parent access</span><br>
             <span class="logout-btn" onclick="logout()">Log out</span>
           </div>
         </div>
@@ -621,14 +635,9 @@
             </p>
           </div>
           <div>
-            <span class="pill">Admin Control</span><br>
+            <span class="pill">Canteen staff</span><br>
             <span class="logout-btn" onclick="logout()">Log out</span>
           </div>
-        </div>
-
-        <div class="small-text">
-          Data is stored only in this browser’s local storage. For a real system,
-          you’d connect this to a backend database.
         </div>
 
         <table id="adminTable">
@@ -693,29 +702,29 @@
   </main>
 
   <footer>
-    Haileybury Bhaluka Snack Campaign – static front-end demo (no real payments).
+    Haileybury Bhaluka Canteen – internal ordering system.
   </footer>
 </div>
 
 <script>
-  /*******************
+  /***************
    * DATA LAYER
-   *******************/
+   ***************/
   const STORAGE_ITEMS_KEY = 'hbSnackItemsV1';
   const ACCOUNTS_KEY = 'hbStudentAccountsV1';
 
   const defaultItems = [
-    { id: 1, name: 'Nutella Jar (Small)',          category: 'snack',     price: 250, stock: 15 },
-    { id: 2, name: 'Lays Classic Chips Pack',      category: 'snack',     price: 80,  stock: 40 },
-    { id: 3, name: 'Ruchi Chanachur Pack',         category: 'snack',     price: 50,  stock: 60 },
-    { id: 4, name: 'Mr. Noodles Chicken Packet',   category: 'snack',     price: 60,  stock: 35 },
-    { id: 5, name: 'KitKat Chocolate Bar',         category: 'snack',     price: 70,  stock: 30 },
-    { id: 6, name: 'Oreo Biscuit Pack',            category: 'snack',     price: 60,  stock: 40 },
-    { id: 7, name: 'Coca-Cola Can 250ml',          category: 'drink',     price: 50,  stock: 50 },
-    { id: 8, name: 'Sprite Can 250ml',             category: 'drink',     price: 50,  stock: 50 },
-    { id: 9, name: 'Mango Juice Box 200ml',        category: 'drink',     price: 45,  stock: 45 },
-    { id:10, name: 'Chocolate Ice-cream Cup',      category: 'ice-cream', price: 80,  stock: 30 },
-    { id:11, name: 'Vanilla Ice-cream Stick',      category: 'ice-cream', price: 70,  stock: 30 }
+    { id: 1,  name: 'Nutella Jar (Small)',        category: 'snack',     price: 250, stock: 15 },
+    { id: 2,  name: 'Lays Classic Chips Pack',    category: 'snack',     price: 80,  stock: 40 },
+    { id: 3,  name: 'Ruchi Chanachur Pack',       category: 'snack',     price: 50,  stock: 60 },
+    { id: 4,  name: 'Mr. Noodles Chicken Packet', category: 'snack',     price: 60,  stock: 35 },
+    { id: 5,  name: 'KitKat Chocolate Bar',       category: 'snack',     price: 70,  stock: 30 },
+    { id: 6,  name: 'Oreo Biscuit Pack',          category: 'snack',     price: 60,  stock: 40 },
+    { id: 7,  name: 'Coca-Cola Can 250ml',        category: 'drink',     price: 50,  stock: 50 },
+    { id: 8,  name: 'Sprite Can 250ml',           category: 'drink',     price: 50,  stock: 50 },
+    { id: 9,  name: 'Mango Juice Box 200ml',      category: 'drink',     price: 45,  stock: 45 },
+    { id: 10, name: 'Chocolate Ice-cream Cup',    category: 'ice-cream', price: 80,  stock: 30 },
+    { id: 11, name: 'Vanilla Ice-cream Stick',    category: 'ice-cream', price: 70,  stock: 30 }
   ];
 
   const defaultAccounts = {
@@ -757,9 +766,9 @@
   let items = loadItems();
   let accounts = loadAccounts();
 
-  /*******************
-   * LOGIN SYSTEM
-   *******************/
+  /***************
+   * LOGIN
+   ***************/
   const users = {
     student: [
       { username: 'stu001', password: 'hb123' },
@@ -836,13 +845,13 @@
     }
   }
 
-  /*******************
-   * CANTEEN OPEN STATUS
+  /***************
+   * SCHEDULE STATUS
    * Saturday 1:00–1:30 PM
-   *******************/
+   ***************/
   function updateOpenStatus() {
     const now = new Date();
-    const day = now.getDay(); // 0=Sun ... 6=Sat
+    const day = now.getDay(); // 0 = Sunday ... 6 = Saturday
     const minutes = now.getHours() * 60 + now.getMinutes();
     const start = 13 * 60;
     const end = 13 * 60 + 30;
@@ -863,9 +872,9 @@
   updateOpenStatus();
   setInterval(updateOpenStatus, 60000);
 
-  /*******************
+  /***************
    * CATALOG + CARTS
-   *******************/
+   ***************/
   const studentCart = {};
   const parentCart = {};
 
@@ -920,10 +929,7 @@
     const cart = role === 'student' ? studentCart : parentCart;
     if (!cart[itemId]) cart[itemId] = 0;
     cart[itemId] += 1;
-
-    if (cart[itemId] > item.stock) {
-      cart[itemId] = item.stock;
-    }
+    if (cart[itemId] > item.stock) cart[itemId] = item.stock;
 
     renderCart(role);
   }
@@ -959,23 +965,57 @@
     totalEl.className = 'total';
     totalEl.textContent = 'Total: ৳' + total;
 
+    let paymentSelect = null;
+    let paymentLabel = null;
+
+    if (role === 'parent') {
+      const container = document.createElement('div');
+      container.style.marginBottom = '6px';
+      paymentLabel = document.createElement('label');
+      paymentLabel.className = 'small-text';
+      paymentLabel.textContent = 'Payment method: ';
+
+      paymentSelect = document.createElement('select');
+      paymentSelect.style.marginLeft = '4px';
+      const optCash = document.createElement('option');
+      optCash.value = 'Cash';
+      optCash.textContent = 'Cash at canteen';
+      const optCard = document.createElement('option');
+      optCard.value = 'Card';
+      optCard.textContent = 'Card at canteen';
+      paymentSelect.appendChild(optCash);
+      paymentSelect.appendChild(optCard);
+
+      paymentLabel.appendChild(paymentSelect);
+      container.appendChild(paymentLabel);
+      wrapper.innerHTML = '';
+      wrapper.appendChild(list);
+      wrapper.appendChild(totalEl);
+      wrapper.appendChild(container);
+    } else {
+      wrapper.innerHTML = '';
+      wrapper.appendChild(list);
+      wrapper.appendChild(totalEl);
+    }
+
     const btn = document.createElement('button');
     btn.className = 'btn btn-primary';
-    btn.textContent = 'Place order (demo)';
+    btn.textContent = 'Place order';
     btn.addEventListener('click', () => {
-      placeOrder(role, entries, total);
+      let method = 'Student account / pay at canteen';
+      if (role === 'parent' && paymentSelect) {
+        method = paymentSelect.value === 'Card' ? 'Card at canteen' : 'Cash at canteen';
+      }
+      placeOrder(role, entries, total, method);
     });
 
-    wrapper.innerHTML = '';
-    wrapper.appendChild(list);
-    wrapper.appendChild(totalEl);
     wrapper.appendChild(btn);
   }
 
-  function placeOrder(role, entries, total) {
+  function placeOrder(role, entries, total, paymentMethod) {
     if (!entries.length) return;
 
-    // Reduce stock
+    // Update stock
     entries.forEach(([id, qty]) => {
       const idx = items.findIndex(i => i.id === Number(id));
       if (idx !== -1) {
@@ -984,7 +1024,7 @@
     });
     saveItems(items);
 
-    // If student, update his/her account
+    // Update student account
     if (role === 'student' && currentUser) {
       const uname = currentUser.username;
       if (!accounts[uname]) {
@@ -1007,6 +1047,7 @@
       acc.history.push({
         time: new Date().toISOString(),
         total,
+        paymentMethod,
         items: orderItems
       });
 
@@ -1014,9 +1055,9 @@
       renderStudentAccountSummary();
     }
 
-    alert('Order placed (demo only – no real payment). Total: ৳' + total);
+    alert('Order placed. Please show this order at the canteen counter.\nTotal: ৳' + total + '\nPayment: ' + paymentMethod);
 
-    // Clear cart for that role
+    // Clear cart
     const cart = role === 'student' ? studentCart : parentCart;
     Object.keys(cart).forEach(k => delete cart[k]);
 
@@ -1025,9 +1066,9 @@
     renderAdminTable();
   }
 
-  /*******************
+  /***************
    * STUDENT ACCOUNT SUMMARY
-   *******************/
+   ***************/
   function renderStudentAccountSummary() {
     if (!currentUser || currentUser.role !== 'student') return;
     const uname = currentUser.username;
@@ -1060,14 +1101,14 @@
       const itemsStr = (order.items || [])
         .map(i => `${i.qty}× ${i.name}`)
         .join(', ');
-      li.textContent = `${timeStr} – ${itemsStr} (৳${order.total})`;
+      li.textContent = `${timeStr} – ${itemsStr} (৳${order.total}, ${order.paymentMethod})`;
       historyList.appendChild(li);
     });
   }
 
-  /*******************
-   * ADMIN PORTAL – ITEMS
-   *******************/
+  /***************
+   * ADMIN – ITEMS
+   ***************/
   function renderAdminTable() {
     const tbody = document.querySelector('#adminTable tbody');
     if (!tbody) return;
@@ -1162,9 +1203,9 @@
     e.target.reset();
   });
 
-  /*******************
-   * ADMIN PORTAL – ACCOUNTS
-   *******************/
+  /***************
+   * ADMIN – ACCOUNTS
+   ***************/
   const accSelect = document.getElementById('accStudentSelect');
   const accInfo = document.getElementById('accStudentInfo');
   const accDepositInput = document.getElementById('accDepositAmount');
@@ -1174,4 +1215,46 @@
     if (!accSelect) return;
     const uname = accSelect.value;
     const acc = accounts[uname] || { deposited: 0, spent: 0, history: [] };
-    const deposited = acc
+    const deposited = acc.deposited || 0;
+    const spent = acc.spent || 0;
+    const remaining = deposited - spent;
+    const due = remaining < 0 ? -remaining : 0;
+
+    accInfo.textContent =
+      'Deposited: ৳' + deposited +
+      ' • Spent: ৳' + spent +
+      ' • Remaining: ৳' + (remaining > 0 ? remaining : 0) +
+      (due > 0 ? ' • Student owes: ৳' + due : '');
+  }
+
+  if (accSelect && accDepositBtn) {
+    accSelect.addEventListener('change', renderAdminAccountInfo);
+
+    accDepositBtn.addEventListener('click', () => {
+      const uname = accSelect.value;
+      const amount = Number(accDepositInput.value);
+      if (!uname || !(amount > 0)) return;
+      if (!accounts[uname]) {
+        accounts[uname] = { name: uname, deposited: 0, spent: 0, history: [] };
+      }
+      accounts[uname].deposited = (accounts[uname].deposited || 0) + amount;
+      saveAccounts(accounts);
+      accDepositInput.value = '';
+      renderAdminAccountInfo();
+
+      const msgEl = document.getElementById('adminMsg');
+      msgEl.textContent = 'Added ৳' + amount + ' deposit for ' + uname;
+      msgEl.className = 'alert success';
+
+      if (currentUser && currentUser.role === 'student' && currentUser.username === uname) {
+        renderStudentAccountSummary();
+      }
+    });
+  }
+
+  // Initial passive renders
+  renderCatalog('student');
+  renderAdminAccountInfo();
+</script>
+</body>
+</html>
