@@ -1,0 +1,1369 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>School Canteen</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <style>
+    :root {
+      --primary: #2563eb;
+      --primary-soft: #dbeafe;
+      --accent: #f97316;
+      --bg: #f3f4f6;
+      --text: #111827;
+      --muted: #6b7280;
+      --radius-lg: 18px;
+      --radius-sm: 10px;
+      --shadow-soft: 0 18px 40px rgba(15, 23, 42, 0.12);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: radial-gradient(circle at top, #e0f2fe 0, #f9fafb 45%, #e5e7eb 100%);
+      color: var(--text);
+      line-height: 1.5;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    img {
+      max-width: 100%;
+      display: block;
+    }
+
+    /* Layout */
+
+    .page {
+      min-height: 100vh;
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 16px 16px 48px;
+    }
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      backdrop-filter: blur(14px);
+      background: linear-gradient(to bottom, rgba(249,250,251,0.92), rgba(249,250,251,0.8));
+      border-bottom: 1px solid rgba(209,213,219,0.7);
+    }
+
+    .nav-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 10px 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .brand-logo {
+      width: 38px;
+      height: 38px;
+      border-radius: 999px;
+      background: radial-gradient(circle at 30% 20%, #facc15, #f97316 45%, #b91c1c);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fefce8;
+      font-weight: 800;
+      font-size: 18px;
+      box-shadow: 0 10px 25px rgba(248, 113, 113, 0.3);
+    }
+
+    .brand-text-main {
+      font-weight: 700;
+      font-size: 17px;
+      letter-spacing: 0.03em;
+    }
+
+    .brand-text-sub {
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 14px;
+      align-items: center;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+
+    nav a {
+      font-size: 14px;
+      color: var(--muted);
+      padding: 6px 10px;
+      border-radius: 999px;
+      transition: background 0.2s, color 0.2s, transform 0.15s;
+    }
+
+    nav a:hover {
+      background: var(--primary-soft);
+      color: var(--primary);
+      transform: translateY(-1px);
+    }
+
+    .nav-cta {
+      background: var(--primary);
+      color: white;
+      padding: 7px 14px;
+      border-radius: 999px;
+      font-size: 14px;
+      font-weight: 600;
+      box-shadow: 0 10px 25px rgba(37, 99, 235, 0.35);
+    }
+
+    .nav-cta:hover {
+      background: #1d4ed8;
+      transform: translateY(-1px);
+    }
+
+    main {
+      max-width: 1100px;
+      margin: 14px auto 0;
+      padding: 0 4px;
+    }
+
+    section {
+      margin-top: 40px;
+    }
+
+    /* Hero */
+
+    .hero {
+      display: grid;
+      grid-template-columns: minmax(0, 3fr) minmax(0, 2.7fr);
+      gap: 28px;
+      align-items: center;
+      margin-top: 18px;
+      padding: 22px 22px 22px;
+      border-radius: 24px;
+      background: radial-gradient(circle at top left, #eff6ff, #f9fafb 40%, #e0f2fe 70%);
+      box-shadow: var(--shadow-soft);
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 10px;
+      border-radius: 999px;
+      background: rgba(34,197,94,0.10);
+      border: 1px solid rgba(34,197,94,0.3);
+      color: #15803d;
+      font-size: 12px;
+      margin-bottom: 10px;
+    }
+
+    .hero-badge-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 999px;
+      background: #22c55e;
+      box-shadow: 0 0 0 6px rgba(34, 197, 94, 0.35);
+    }
+
+    .hero h1 {
+      font-size: clamp(26px, 4vw, 32px);
+      line-height: 1.1;
+      margin-bottom: 10px;
+      letter-spacing: -0.03em;
+    }
+
+    .hero-highlight {
+      background: linear-gradient(120deg, #2563eb, #f97316);
+      -webkit-background-clip: text;
+      color: transparent;
+    }
+
+    .hero p {
+      font-size: 14px;
+      color: var(--muted);
+      max-width: 460px;
+      margin-bottom: 16px;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+
+    .btn-primary {
+      background: var(--primary);
+      color: #f9fafb;
+      border: none;
+      padding: 10px 18px;
+      border-radius: 999px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      box-shadow: 0 12px 26px rgba(37, 99, 235, 0.45);
+      transition: transform 0.15s, box-shadow 0.15s, background 0.15s;
+    }
+
+    .btn-primary:hover {
+      background: #1d4ed8;
+      transform: translateY(-1px);
+      box-shadow: 0 16px 34px rgba(37, 99, 235, 0.55);
+    }
+
+    .btn-ghost {
+      border-radius: 999px;
+      border: 1px solid #d1d5db;
+      font-size: 14px;
+      padding: 9px 15px;
+      background: white;
+      color: var(--muted);
+      display: inline-flex;
+      gap: 6px;
+      align-items: center;
+      cursor: pointer;
+      transition: background 0.15s, border 0.15s;
+    }
+
+    .btn-ghost:hover {
+      background: #f9fafb;
+      border-color: #9ca3af;
+    }
+
+    .hero-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+      margin-top: 8px;
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    .hero-meta span {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .hero-meta-pill {
+      padding: 4px 10px;
+      border-radius: 999px;
+      background: rgba(37,99,235,0.06);
+      color: #1d4ed8;
+      border: 1px dashed rgba(37,99,235,0.4);
+    }
+
+    .hero-visual {
+      border-radius: 24px;
+      background: radial-gradient(circle at top, #f97316 0, #1d4ed8 85%);
+      position: relative;
+      padding: 16px;
+      overflow: hidden;
+      color: #f9fafb;
+    }
+
+    .hero-visual-main {
+      border-radius: 22px;
+      background: rgba(15,23,42,0.9);
+      padding: 16px 18px;
+      box-shadow: 0 24px 45px rgba(15, 23, 42, 0.8);
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero-visual-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
+      font-size: 13px;
+    }
+
+    .hero-visual-header span:first-child {
+      font-weight: 600;
+    }
+
+    .status-pill {
+      padding: 4px 10px;
+      border-radius: 999px;
+      background: rgba(34,197,94,0.15);
+      color: #bbf7d0;
+      font-size: 11px;
+      border: 1px solid rgba(74,222,128,0.5);
+    }
+
+    .hero-visual-grid {
+      display: grid;
+      grid-template-columns: 1.7fr 1.2fr;
+      gap: 12px;
+      margin-top: 6px;
+    }
+
+    .hero-card {
+      padding: 10px 12px;
+      border-radius: 14px;
+      background: rgba(15,23,42,0.9);
+      border: 1px solid rgba(148,163,184,0.35);
+    }
+
+    .hero-card h3 {
+      font-size: 13px;
+      margin-bottom: 5px;
+    }
+
+    .hero-card p {
+      font-size: 11px;
+      color: #cbd5f5;
+    }
+
+    .hero-chip-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 8px;
+    }
+
+    .chip {
+      font-size: 10px;
+      padding: 4px 8px;
+      border-radius: 999px;
+      border: 1px solid rgba(148,163,184,0.55);
+      color: #e5e7eb;
+      background: rgba(15,23,42,0.85);
+    }
+
+    .hero-metrics {
+      margin-top: 8px;
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 8px;
+      font-size: 11px;
+    }
+
+    .hero-metric {
+      padding: 6px 8px;
+      border-radius: 10px;
+      background: rgba(15,23,42,0.9);
+      border: 1px solid rgba(55,65,81,0.6);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .hero-metric span:first-child {
+      color: #9ca3af;
+    }
+
+    .hero-metric span:last-child {
+      font-weight: 600;
+      color: #facc15;
+    }
+
+    .hero-visual-tag {
+      position: absolute;
+      bottom: 14px;
+      left: 22px;
+      background: rgba(15,23,42,0.9);
+      padding: 6px 10px;
+      border-radius: 999px;
+      font-size: 11px;
+      border: 1px solid rgba(148,163,184,0.5);
+      display: inline-flex;
+      gap: 6px;
+      align-items: center;
+    }
+
+    .hero-visual-orb {
+      position: absolute;
+      width: 120px;
+      height: 120px;
+      background: radial-gradient(circle, rgba(251,191,36,0.7), transparent 70%);
+      border-radius: 999px;
+      top: -20px;
+      right: -30px;
+      opacity: 0.35;
+    }
+
+    /* Section titles */
+
+    .section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      gap: 10px;
+      margin-bottom: 14px;
+    }
+
+    .section-title {
+      font-size: 18px;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+    }
+
+    .section-subtitle {
+      font-size: 13px;
+      color: var(--muted);
+    }
+
+    .section-tag {
+      font-size: 11px;
+      padding: 4px 8px;
+      border-radius: 999px;
+      background: #eef2ff;
+      color: #4f46e5;
+    }
+
+    /* Daily specials */
+
+    .specials {
+      display: grid;
+      grid-template-columns: minmax(0, 2.1fr) minmax(0, 1.4fr);
+      gap: 18px;
+    }
+
+    .card {
+      background: white;
+      border-radius: var(--radius-lg);
+      padding: 16px 18px;
+      box-shadow: 0 16px 40px rgba(15,23,42,0.08);
+      border: 1px solid rgba(209,213,219,0.8);
+    }
+
+    .card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+
+    .card-title {
+      font-size: 15px;
+      font-weight: 600;
+    }
+
+    .card-subtitle {
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    .pill {
+      font-size: 11px;
+      padding: 4px 9px;
+      border-radius: 999px;
+      background: #ecfdf5;
+      color: #15803d;
+      border: 1px solid #bbf7d0;
+    }
+
+    .specials-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: 10px;
+      margin-top: 6px;
+    }
+
+    .special-item {
+      padding: 10px;
+      border-radius: var(--radius-sm);
+      background: #f9fafb;
+      border: 1px solid #e5e7eb;
+      display: grid;
+      gap: 4px;
+      font-size: 12px;
+    }
+
+    .special-item-header {
+      display: flex;
+      justify-content: space-between;
+      gap: 6px;
+      align-items: center;
+      font-weight: 600;
+    }
+
+    .special-price {
+      font-weight: 700;
+      color: #16a34a;
+    }
+
+    .special-tag {
+      font-size: 10px;
+      padding: 2px 6px;
+      border-radius: 999px;
+      background: #eff6ff;
+      color: #1d4ed8;
+    }
+
+    .special-desc {
+      color: var(--muted);
+    }
+
+    .special-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 10px;
+      color: #6b7280;
+      margin-top: 4px;
+    }
+
+    .legend {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      font-size: 11px;
+      margin-top: 4px;
+    }
+
+    .legend span {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 3px 7px;
+      border-radius: 999px;
+      background: #f3f4f6;
+    }
+
+    .legend-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 999px;
+    }
+
+    .legend-dot.veggie {
+      background: #16a34a;
+    }
+
+    .legend-dot.spicy {
+      background: #ea580c;
+    }
+
+    .legend-dot.popular {
+      background: #eab308;
+    }
+
+    .hours-list {
+      list-style: none;
+      font-size: 12px;
+      display: grid;
+      gap: 4px;
+      margin: 8px 0;
+    }
+
+    .hours-list li {
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .hours-day {
+      color: #4b5563;
+    }
+
+    .hours-time {
+      font-weight: 500;
+    }
+
+    .hours-note {
+      font-size: 11px;
+      color: var(--muted);
+      margin-top: 6px;
+    }
+
+    .status-open {
+      font-size: 11px;
+      padding: 3px 8px;
+      border-radius: 999px;
+      background: #ecfdf5;
+      border: 1px solid #bbf7d0;
+      color: #166534;
+      display: inline-flex;
+      gap: 5px;
+      align-items: center;
+    }
+
+    /* Menu section */
+
+    .menu-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 14px;
+    }
+
+    .menu-column {
+      background: white;
+      border-radius: var(--radius-lg);
+      padding: 14px 14px 12px;
+      border: 1px solid rgba(209,213,219,0.9);
+      box-shadow: 0 10px 26px rgba(15,23,42,0.06);
+    }
+
+    .menu-column h3 {
+      font-size: 14px;
+      margin-bottom: 4px;
+    }
+
+    .menu-column small {
+      font-size: 11px;
+      color: var(--muted);
+    }
+
+    .menu-item {
+      margin-top: 8px;
+      padding-top: 7px;
+      border-top: 1px dashed #e5e7eb;
+      display: grid;
+      gap: 2px;
+    }
+
+    .menu-item-header {
+      display: flex;
+      justify-content: space-between;
+      gap: 6px;
+      font-size: 13px;
+    }
+
+    .menu-item-desc {
+      font-size: 11px;
+      color: var(--muted);
+    }
+
+    .menu-badge-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 4px;
+      margin-top: 2px;
+    }
+
+    .menu-badge {
+      font-size: 10px;
+      padding: 2px 6px;
+      border-radius: 999px;
+      background: #eff6ff;
+      color: #1d4ed8;
+    }
+
+    .menu-badge.veggie {
+      background: #dcfce7;
+      color: #166534;
+    }
+
+    .menu-badge.spicy {
+      background: #fff7ed;
+      color: #c2410c;
+    }
+
+    /* Ordering & contact */
+
+    .info-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.5fr) minmax(0, 1.3fr);
+      gap: 16px;
+    }
+
+    .steps {
+      list-style: none;
+      font-size: 13px;
+      display: grid;
+      gap: 8px;
+      margin-top: 10px;
+    }
+
+    .steps li {
+      display: flex;
+      gap: 8px;
+      align-items: flex-start;
+    }
+
+    .step-index {
+      width: 20px;
+      height: 20px;
+      border-radius: 999px;
+      background: var(--primary-soft);
+      color: #1d4ed8;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      font-weight: 600;
+      margin-top: 3px;
+      flex-shrink: 0;
+    }
+
+    .step-text {
+      font-size: 12px;
+      color: #374151;
+    }
+
+    .contact-list {
+      list-style: none;
+      font-size: 13px;
+      display: grid;
+      gap: 6px;
+      margin: 8px 0;
+    }
+
+    .contact-label {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: #9ca3af;
+    }
+
+    .contact-highlight {
+      font-weight: 600;
+    }
+
+    .contact-note {
+      font-size: 11px;
+      color: var(--muted);
+      margin-top: 4px;
+    }
+
+    .feedback-box {
+      font-size: 12px;
+      margin-top: 10px;
+      padding: 9px 10px;
+      border-radius: 10px;
+      background: #f9fafb;
+      border: 1px dashed #d1d5db;
+      color: #4b5563;
+    }
+
+    /* Gallery */
+
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: 10px;
+    }
+
+    .gallery-item {
+      border-radius: 16px;
+      background: linear-gradient(135deg, #e5e7eb, #f9fafb);
+      height: 110px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      color: #6b7280;
+      border: 1px dashed #d1d5db;
+      text-align: center;
+      padding: 8px;
+    }
+
+    /* Footer */
+
+    footer {
+      margin-top: 40px;
+      padding-top: 18px;
+      border-top: 1px solid #e5e7eb;
+      font-size: 11px;
+      color: #9ca3af;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 8px;
+    }
+
+    footer span strong {
+      color: #4b5563;
+    }
+
+    @media (max-width: 800px) {
+      .hero {
+        grid-template-columns: minmax(0, 1fr);
+      }
+      .hero-visual {
+        order: -1;
+      }
+      .specials, .info-grid {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+
+    @media (max-width: 640px) {
+      .nav-inner {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      nav ul {
+        justify-content: flex-start;
+      }
+
+      .hero {
+        padding: 16px 14px;
+      }
+
+      .card, .menu-column {
+        padding: 12px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header>
+    <div class="nav-inner">
+      <div class="brand">
+        <div class="brand-logo">SC</div>
+        <div>
+          <div class="brand-text-main">Sunrise School Canteen</div>
+          <div class="brand-text-sub">Fresh, fast & student-friendly</div>
+        </div>
+      </div>
+
+      <nav>
+        <ul>
+          <li><a href="#specials">Today’s Specials</a></li>
+          <li><a href="#menu">Full Menu</a></li>
+          <li><a href="#ordering">Order & Rules</a></li>
+          <li><a href="#contact">Contact</a></li>
+          <li><a href="#gallery">Gallery</a></li>
+          <li><a class="nav-cta" href="#ordering">Pre-Order Now</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <div class="page">
+    <main>
+      <!-- HERO -->
+      <section class="hero">
+        <div>
+          <div class="hero-badge">
+            <span class="hero-badge-dot"></span>
+            Healthy, hygienic & affordable
+          </div>
+          <h1>
+            Fueling every <span class="hero-highlight">school day</span> with good food.
+          </h1>
+          <p>
+            Welcome to the official canteen of Sunrise School. Simple menu, fair prices,
+            clean kitchen and always-fresh snacks for students, teachers and staff.
+          </p>
+
+          <div class="hero-actions">
+            <button class="btn-primary" onclick="scrollToSection('specials')">
+              View today’s specials →
+            </button>
+            <button class="btn-ghost" onclick="scrollToSection('menu')">
+              View full menu
+            </button>
+          </div>
+
+          <div class="hero-meta">
+            <span class="hero-meta-pill">Open on all class days</span>
+            <span>Cash & prepaid card accepted</span>
+            <span>Vegetarian options available</span>
+          </div>
+        </div>
+
+        <div class="hero-visual" aria-hidden="true">
+          <div class="hero-visual-main">
+            <div class="hero-visual-header">
+              <span>Today at a glance</span>
+              <span class="status-pill" id="openStatus">
+                Checking...
+              </span>
+            </div>
+
+            <div class="hero-visual-grid">
+              <div class="hero-card">
+                <h3>Lunch Rush</h3>
+                <p>Main break 11:00 – 11:30</p>
+                <div class="hero-chip-row">
+                  <span class="chip">Best sellers ready</span>
+                  <span class="chip">Queues monitored</span>
+                </div>
+                <div class="hero-metrics">
+                  <div class="hero-metric">
+                    <span>Veg ratio</span>
+                    <span>40%</span>
+                  </div>
+                  <div class="hero-metric">
+                    <span>Prepared plates</span>
+                    <span>120</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="hero-card">
+                <h3>Today’s Top Picks</h3>
+                <p>Selected with student feedback.</p>
+                <div class="hero-metrics">
+                  <div class="hero-metric">
+                    <span>Snack of day</span>
+                    <span>Samosa</span>
+                  </div>
+                  <div class="hero-metric">
+                    <span>Drink of day</span>
+                    <span>Lemonade</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="hero-visual-tag">
+            <span>✔ Fixed prices</span>
+            <span>✔ Clean water</span>
+            <span>✔ No junk overload</span>
+          </div>
+
+          <div class="hero-visual-orb"></div>
+        </div>
+      </section>
+
+      <!-- DAILY SPECIALS + HOURS -->
+      <section id="specials">
+        <div class="section-header">
+          <div>
+            <div class="section-title">Today’s Specials & Opening Hours</div>
+            <div class="section-subtitle">
+              Updated daily by the canteen manager. You can edit items in the HTML file any time.
+            </div>
+          </div>
+          <span class="section-tag">Daily overview</span>
+        </div>
+
+        <div class="specials">
+          <!-- Specials card -->
+          <div class="card">
+            <div class="card-header">
+              <div>
+                <div class="card-title">Today’s Specials</div>
+                <div class="card-subtitle" id="todayName">For all students</div>
+              </div>
+              <span class="pill">Limited quantity</span>
+            </div>
+
+            <div class="specials-grid">
+              <article class="special-item">
+                <div class="special-item-header">
+                  <span>Veg Fried Rice</span>
+                  <span class="special-price">৳70</span>
+                </div>
+                <div class="special-desc">
+                  Lightly seasoned rice with mixed vegetables.
+                </div>
+                <div class="menu-badge-row">
+                  <span class="menu-badge veggie">Vegetarian</span>
+                  <span class="menu-badge">Popular</span>
+                </div>
+                <div class="special-meta">
+                  <span>Ready by 10:30</span>
+                  <span>Max 1 plate per student</span>
+                </div>
+              </article>
+
+              <article class="special-item">
+                <div class="special-item-header">
+                  <span>Chicken Roll</span>
+                  <span class="special-price">৳50</span>
+                </div>
+                <div class="special-desc">
+                  Soft paratha wrap with grilled chicken filling.
+                </div>
+                <div class="menu-badge-row">
+                  <span class="menu-badge spicy">Mild spicy</span>
+                </div>
+                <div class="special-meta">
+                  <span>Snack break</span>
+                  <span>Fresh batch every 30 min</span>
+                </div>
+              </article>
+
+              <article class="special-item">
+                <div class="special-item-header">
+                  <span>Fruit Cup</span>
+                  <span class="special-price">৳40</span>
+                </div>
+                <div class="special-desc">
+                  Seasonal mixed fruits, no added sugar.
+                </div>
+                <div class="menu-badge-row">
+                  <span class="menu-badge veggie">Healthy choice</span>
+                </div>
+                <div class="special-meta">
+                  <span>Limited to 80 cups</span>
+                  <span>Cold & covered</span>
+                </div>
+              </article>
+            </div>
+
+            <div class="legend">
+              <span><span class="legend-dot veggie"></span>Vegetarian</span>
+              <span><span class="legend-dot spicy"></span>Mild spicy</span>
+              <span><span class="legend-dot popular"></span>Student favourite</span>
+            </div>
+          </div>
+
+          <!-- Hours card -->
+          <div class="card">
+            <div class="card-header">
+              <div>
+                <div class="card-title">Opening Hours</div>
+                <div class="card-subtitle">
+                  School days only — closed on holidays and exams unless notified.
+                </div>
+              </div>
+              <div class="status-open" id="openStatusSmall">
+                Checking status...
+              </div>
+            </div>
+
+            <ul class="hours-list">
+              <li><span class="hours-day">Before school</span><span class="hours-time">07:45 – 08:10</span></li>
+              <li><span class="hours-day">Short break</span><span class="hours-time">10:00 – 10:15</span></li>
+              <li><span class="hours-day">Lunch break</span><span class="hours-time">11:45 – 12:20</span></li>
+              <li><span class="hours-day">After school</span><span class="hours-time">02:30 – 03:30</span></li>
+            </ul>
+
+            <p class="hours-note">
+              <strong>Note:</strong> On exam days, timings may change. Check school notice board
+              or class WhatsApp group for updates.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- FULL MENU -->
+      <section id="menu">
+        <div class="section-header">
+          <div>
+            <div class="section-title">Full Menu</div>
+            <div class="section-subtitle">
+              You can add, remove or edit items anytime by changing this section of the file.
+            </div>
+          </div>
+          <span class="section-tag">Fixed price list</span>
+        </div>
+
+        <div class="menu-grid">
+          <!-- Breakfast & Snacks -->
+          <div class="menu-column">
+            <h3>Breakfast & Light Snacks</h3>
+            <small>Available before school & short break</small>
+
+            <div class="menu-item">
+              <div class="menu-item-header">
+                <span>Paratha & Egg</span>
+                <span>৳40</span>
+              </div>
+              <div class="menu-item-desc">
+                1 paratha with boiled or omelette egg.
+              </div>
+            </div>
+
+            <div class="menu-item">
+              <div class="menu-item-header">
+                <span>Vegetable Singara</span>
+                <span>৳15</span>
+              </div>
+              <div class="menu-item-desc">
+                Deep fried, potato & veg filling.
+              </div>
+              <div class="menu-badge-row">
+                <span class="menu-badge veggie">Vegetarian</span>
+              </div>
+            </div>
+
+            <div class="menu-item">
+              <div class="menu-item-header">
+                <span>Chicken Puff</span>
+                <span>৳30</span>
+              </div>
+              <div class="menu-item-desc">
+                Baked puff pastry with chicken filling.
+              </div>
+            </div>
+          </div>
+
+          <!-- Main Meals -->
+          <div class="menu-column">
+            <h3>Main Meals</h3>
+            <small>Best for lunch break</small>
+
+            <div class="menu-item">
+              <div class="menu-item-header">
+                <span>Rice, Dal & Veg</span>
+                <span>৳60</span>
+              </div>
+              <div class="menu-item-desc">
+                Steamed rice with lentils and seasonal vegetables.
+              </div>
+              <div class="menu-badge-row">
+                <span class="menu-badge veggie">Vegetarian</span>
+              </div>
+            </div>
+
+            <div class="menu-item">
+              <div class="menu-item-header">
+                <span>Rice, Chicken & Salad</span>
+                <span>৳90</span>
+              </div>
+              <div class="menu-item-desc">
+                Balanced plate with grilled chicken and salad.
+              </div>
+              <div class="menu-badge-row">
+                <span class="menu-badge">Popular</span>
+              </div>
+            </div>
+
+            <div class="menu-item">
+              <div class="menu-item-header">
+                <span>Khichuri with Egg</span>
+                <span>৳70</span>
+              </div>
+              <div class="menu-item-desc">
+                Light, easy-to-digest one-pot meal.
+              </div>
+              <div class="menu-badge-row">
+                <span class="menu-badge veggie">Comfort meal</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Drinks -->
+          <div class="menu-column">
+            <h3>Drinks & Extras</h3>
+            <small>Safe, filtered & school-approved</small>
+
+            <div class="menu-item">
+              <div class="menu-item-header">
+                <span>Filtered Water (Glass)</span>
+                <span>Free</span>
+              </div>
+              <div class="menu-item-desc">
+                Bring your own bottle for refills.
+              </div>
+            </div>
+
+            <div class="menu-item">
+              <div class="menu-item-header">
+                <span>Lemonade</span>
+                <span>৳25</span>
+              </div>
+              <div class="menu-item-desc">
+                Fresh lemons, light sugar.
+              </div>
+            </div>
+
+            <div class="menu-item">
+              <div class="menu-item-header">
+                <span>Milk (Chocolate / Plain)</span>
+                <span>৳30</span>
+              </div>
+              <div class="menu-item-desc">
+                Packaged or boiled, based on availability.
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ORDERING & CONTACT -->
+      <section id="ordering">
+        <div class="section-header">
+          <div>
+            <div class="section-title">How to Order & Canteen Rules</div>
+            <div class="section-subtitle">
+              Clear system so students get food fast and fairly.
+            </div>
+          </div>
+          <span class="section-tag">Important info</span>
+        </div>
+
+        <div class="info-grid">
+          <!-- Ordering steps -->
+          <div class="card">
+            <div class="card-header">
+              <div>
+                <div class="card-title">Ordering System</div>
+                <div class="card-subtitle">Follow these simple steps:</div>
+              </div>
+            </div>
+
+            <ol class="steps">
+              <li>
+                <span class="step-index">1</span>
+                <span class="step-text">
+                  <strong>Join the correct queue.</strong> Separate lines for junior and senior classes to keep it fair.
+                </span>
+              </li>
+              <li>
+                <span class="step-index">2</span>
+                <span class="step-text">
+                  <strong>Decide your order before reaching the counter.</strong> Check this website or the menu board.
+                </span>
+              </li>
+              <li>
+                <span class="step-index">3</span>
+                <span class="step-text">
+                  <strong>Pay in cash or prepaid card.</strong> Exact change helps speed up the line.
+                </span>
+              </li>
+              <li>
+                <span class="step-index">4</span>
+                <span class="step-text">
+                  <strong>Take food, move away from the counter.</strong> Let the next student come forward.
+                </span>
+              </li>
+            </ol>
+
+            <div class="feedback-box">
+              <strong>Allergy & Health:</strong> If you have any food allergy (egg, milk, nuts, etc.) inform your class teacher
+              and canteen staff. Ask before buying.
+            </div>
+          </div>
+
+          <!-- Contact & feedback -->
+          <div class="card" id="contact">
+            <div class="card-header">
+              <div>
+                <div class="card-title">Contact & Feedback</div>
+                <div class="card-subtitle">For parents, students & teachers</div>
+              </div>
+            </div>
+
+            <ul class="contact-list">
+              <li>
+                <div class="contact-label">Canteen in-charge</div>
+                <div class="contact-highlight">Mr. Rahman (Canteen Manager)</div>
+              </li>
+              <li>
+                <div class="contact-label">Email</div>
+                <div>canteen@sunriseschool.edu</div>
+              </li>
+              <li>
+                <div class="contact-label">Phone (Office hours)</div>
+                <div>+8801X-XXXX-XXXX</div>
+              </li>
+              <li>
+                <div class="contact-label">Location</div>
+                <div>Ground Floor, Block B, Sunrise School Campus</div>
+              </li>
+            </ul>
+
+            <p class="contact-note">
+              For complaints or suggestions, students should inform their class teacher or submit a written note
+              to the school office. Parents can email or call during office time.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- GALLERY / PLACEHOLDER -->
+      <section id="gallery">
+        <div class="section-header">
+          <div>
+            <div class="section-title">Canteen Gallery</div>
+            <div class="section-subtitle">
+              Replace these boxes with real photos of your canteen later.
+            </div>
+          </div>
+          <span class="section-tag">Optional section</span>
+        </div>
+
+        <div class="gallery-grid">
+          <div class="gallery-item">
+            Canteen front view<br>(Add photo here)
+          </div>
+          <div class="gallery-item">
+            Kitchen & hygiene practices<br>(Add photo here)
+          </div>
+          <div class="gallery-item">
+            Students enjoying meals<br>(Add photo here – with permission)
+          </div>
+          <div class="gallery-item">
+            Special event / festival menu<br>(Add photo here)
+          </div>
+        </div>
+      </section>
+
+      <!-- FOOTER -->
+      <footer>
+        <span>© <span id="year"></span> <strong>Sunrise School Canteen</strong>. All rights reserved.</span>
+        <span>Static site – edit this file anytime to update prices or menu.</span>
+      </footer>
+    </main>
+  </div>
+
+  <script>
+    // Smooth scroll helper
+    function scrollToSection(id) {
+      const el = document.getElementById(id);
+      if (!el) return;
+      el.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+
+    // Set current year in footer
+    document.getElementById("year").textContent = new Date().getFullYear();
+
+    // Show day name in specials subtitle
+    const dayNames = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
+    const today = new Date();
+    document.getElementById("todayName").textContent = "Special menu for " + dayNames[today.getDay()];
+
+    // Simple "open / closed" status (you can adjust the schedule here)
+    function checkOpenStatus() {
+      const now = new Date();
+      const hour = now.getHours();
+      const minute = now.getMinutes();
+      const timeInMinutes = hour * 60 + minute;
+
+      // Example schedule: 07:45–08:10, 10:00–10:15, 11:45–12:20, 14:30–15:30
+      const windows = [
+        { start: 7 * 60 + 45, end: 8 * 60 + 10 },
+        { start: 10 * 60, end: 10 * 60 + 15 },
+        { start: 11 * 60 + 45, end: 12 * 60 + 20 },
+        { start: 14 * 60 + 30, end: 15 * 60 + 30 },
+      ];
+
+      let isOpen = false;
+      for (const w of windows) {
+        if (timeInMinutes >= w.start && timeInMinutes <= w.end) {
+          isOpen = true;
+          break;
+        }
+      }
+
+      const openStatus = document.getElementById("openStatus");
+      const openStatusSmall = document.getElementById("openStatusSmall");
+
+      if (isOpen) {
+        openStatus.textContent = "Open now for students";
+        openStatusSmall.textContent = "Status: Open now";
+      } else {
+        openStatus.textContent = "Closed at this moment";
+        openStatusSmall.textContent = "Status: Closed";
+      }
+    }
+
+    checkOpenStatus();
+  </script>
+</body>
+</html>
