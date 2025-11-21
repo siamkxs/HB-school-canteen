@@ -15,15 +15,19 @@
       --muted: #6b7280;
       --radius-lg: 18px;
       --radius-sm: 10px;
-      --shadow-soft: 0 18px 40px rgba(15, 23, 42, 0.12);
+      --shadow-soft: 0 18px 40px rgba(15, 23, 42, 0.18);
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
 
     body {
       font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      background:
-        radial-gradient(circle at top, #fee2e2 0, #f9fafb 40%, #ffe4e6 100%);
+      background-color: #8b134a;
+      background-image: url("hb-logo.png");
+      background-repeat: no-repeat;
+      background-position: center 80px;
+      background-size: 320px auto;
+      background-attachment: fixed;
       color: var(--text);
       line-height: 1.5;
     }
@@ -32,17 +36,21 @@
 
     .page {
       max-width: 1200px;
-      margin: 0 auto;
-      padding: 16px 16px 48px;
-      min-height: 100vh;
+      margin: 20px auto 32px;
+      padding: 16px 16px 32px;
+      min-height: calc(100vh - 40px);
+      background: rgba(249, 250, 251, 0.96);
+      border-radius: 24px;
+      box-shadow: 0 20px 55px rgba(15,23,42,0.45);
+      backdrop-filter: blur(6px);
     }
 
     header {
-      background: linear-gradient(135deg, var(--hb-maroon), #ec4899);
+      background: linear-gradient(135deg, rgba(139,19,74,0.98), #ec4899);
       color: #fdf2f8;
       border-bottom: 1px solid rgba(248,250,252,0.3);
+      border-radius: 18px;
       box-shadow: 0 10px 25px rgba(136,19,55,0.4);
-      border-radius: 0 0 18px 18px;
     }
 
     .nav-inner {
@@ -67,12 +75,17 @@
       height: 46px;
       border-radius: 999px;
       background: #f5f5f5;
+      overflow: hidden;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-weight: 800;
-      color: var(--hb-maroon);
-      font-size: 22px;
+      box-shadow: 0 8px 18px rgba(0,0,0,0.25);
+    }
+
+    .brand-logo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
     }
 
     .brand-text-main {
@@ -212,23 +225,6 @@
 
     .small-text { font-size: 11px; color: var(--muted); }
 
-    .demo-creds {
-      margin-top: 8px;
-      padding: 8px;
-      border-radius: 10px;
-      background: #f9fafb;
-      border: 1px dashed #e5e7eb;
-      font-size: 11px;
-      color: #4b5563;
-    }
-
-    .demo-creds code {
-      background: #e5e7eb;
-      padding: 1px 4px;
-      border-radius: 4px;
-      font-size: 11px;
-    }
-
     .alert {
       margin-top: 6px;
       font-size: 12px;
@@ -236,6 +232,24 @@
     }
 
     .alert.success { color: #15803d; }
+
+    .status-pill {
+      display: inline-flex;
+      align-items: center;
+      padding: 3px 8px;
+      border-radius: 999px;
+      font-size: 11px;
+      margin-top: 10px;
+      border: 1px solid #bbf7d0;
+      background: #ecfdf5;
+      color: #166534;
+    }
+
+    .status-pill.closed {
+      background: #fee2e2;
+      border-color: #fecaca;
+      color: #b91c1c;
+    }
 
     /* Right side: portals */
 
@@ -366,6 +380,48 @@
       margin-bottom: 8px;
     }
 
+    /* Student account overview */
+
+    .account-summary {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+      gap: 8px;
+      margin-top: 8px;
+      padding: 8px;
+      background: #f9fafb;
+      border-radius: 12px;
+      border: 1px dashed #e5e7eb;
+      font-size: 11px;
+    }
+
+    .account-summary div span.label {
+      display: block;
+      color: #6b7280;
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+
+    .account-summary div span.value {
+      font-weight: 600;
+      font-size: 13px;
+    }
+
+    .history-list {
+      list-style: none;
+      font-size: 11px;
+      margin-top: 6px;
+      display: grid;
+      gap: 4px;
+    }
+
+    .history-list li {
+      padding: 4px 6px;
+      border-radius: 8px;
+      background: #f9fafb;
+      border: 1px solid #e5e7eb;
+    }
+
     /* Admin table */
 
     table {
@@ -437,10 +493,12 @@
 <header>
   <div class="nav-inner">
     <div class="brand">
-      <div class="brand-logo">HB</div>
+      <div class="brand-logo">
+        <img src="hb-logo.png" alt="Haileybury Bhaluka logo">
+      </div>
       <div>
         <div class="brand-text-main">Haileybury Bhaluka Snack Campaign</div>
-        <div class="brand-text-sub">Official snack & drinks ordering site</div>
+        <div class="brand-text-sub">Supermarket-style snacks, drinks & ice-cream</div>
       </div>
     </div>
     <div class="addr">
@@ -456,7 +514,7 @@
     <section class="panel">
       <h2>Portal Login</h2>
       <p class="muted">
-        Choose your role and log in to order snacks or manage items.
+        Students, parents and admins can log in here to order or manage items.
       </p>
 
       <div class="role-tabs" id="roleTabs">
@@ -477,11 +535,8 @@
         <button type="submit" class="btn btn-primary">Log in</button>
       </form>
 
-      <div class="demo-creds">
-        <strong>Demo usernames & passwords:</strong><br>
-        Student: <code>stu001 / hb123</code>, <code>stu002 / hb123</code><br>
-        Parent: <code>par001 / hb123</code>, <code>par002 / hb123</code><br>
-        Admin: <code>admin / hbadmin</code>
+      <div id="openStatusPill" class="status-pill">
+        Checking canteen status…
       </div>
 
       <div id="loginMsg" class="alert"></div>
@@ -495,7 +550,7 @@
           <div>
             <h2>Student Portal</h2>
             <p class="muted">
-              Browse snacks, drinks & ice-cream and place your order.
+              Order snacks, drinks & ice-cream during the Haileybury campaign.
             </p>
           </div>
           <div>
@@ -503,6 +558,27 @@
             <span class="logout-btn" onclick="logout()">Log out</span>
           </div>
         </div>
+
+        <div class="account-summary" id="studentAccountSummary">
+          <div>
+            <span class="label">Deposited</span>
+            <span class="value" id="accDeposited">৳0</span>
+          </div>
+          <div>
+            <span class="label">Spent</span>
+            <span class="value" id="accSpent">৳0</span>
+          </div>
+          <div>
+            <span class="label">Remaining</span>
+            <span class="value" id="accRemaining">৳0</span>
+          </div>
+          <div>
+            <span class="label">Amount to pay</span>
+            <span class="value" id="accDue">৳0</span>
+          </div>
+        </div>
+        <div class="small-text" style="margin-top:6px;">Order history</div>
+        <ul id="studentHistoryList" class="history-list"></ul>
 
         <div class="catalog" id="studentCatalog"></div>
 
@@ -518,7 +594,7 @@
           <div>
             <h2>Parent Portal</h2>
             <p class="muted">
-              Order snacks or drinks for your child during the Haileybury campaign.
+              Order snacks or drinks for your child during the campaign.
             </p>
           </div>
           <div>
@@ -541,7 +617,7 @@
           <div>
             <h2>Admin Portal</h2>
             <p class="muted">
-              Manage the list of snacks, drinks & ice-cream for the campaign.
+              Manage supermarket-style items and student deposits.
             </p>
           </div>
           <div>
@@ -551,8 +627,8 @@
         </div>
 
         <div class="small-text">
-          Items are stored in this browser’s local storage. For real production,
-          this needs a proper database on a server.
+          Data is stored only in this browser’s local storage. For a real system,
+          you’d connect this to a backend database.
         </div>
 
         <table id="adminTable">
@@ -573,7 +649,7 @@
           <strong>Add / Update Item</strong>
           <div>
             <label>Item name</label>
-            <input id="adminItemName" required placeholder="e.g. Nutella Sandwich">
+            <input id="adminItemName" required placeholder="e.g. Nutella Sandwich Pack">
           </div>
           <div>
             <label>Category</label>
@@ -594,38 +670,61 @@
           <button class="btn btn-primary" type="submit">Add / Update Item</button>
         </form>
 
+        <form class="admin-form" id="adminAccountForm">
+          <strong>Student accounts</strong>
+          <div>
+            <label>Select student</label>
+            <select id="accStudentSelect">
+              <option value="stu001">stu001</option>
+              <option value="stu002">stu002</option>
+            </select>
+          </div>
+          <div id="accStudentInfo" class="small-text"></div>
+          <div>
+            <label>Add deposit (৳)</label>
+            <input id="accDepositAmount" type="number" min="0">
+          </div>
+          <button class="btn btn-primary" type="button" id="accDepositBtn">Add deposit</button>
+        </form>
+
         <div id="adminMsg" class="alert"></div>
       </div>
     </section>
   </main>
 
   <footer>
-    Haileybury Bhaluka Snack Campaign – static demo site (front-end only).
+    Haileybury Bhaluka Snack Campaign – static front-end demo (no real payments).
   </footer>
 </div>
 
 <script>
   /*******************
-   * SIMPLE DATA LAYER
+   * DATA LAYER
    *******************/
-
-  const STORAGE_KEY = 'hbSnackItemsV1';
+  const STORAGE_ITEMS_KEY = 'hbSnackItemsV1';
+  const ACCOUNTS_KEY = 'hbStudentAccountsV1';
 
   const defaultItems = [
-    { id: 1, name: 'Nutella Sandwich', category: 'snack', price: 120, stock: 25 },
-    { id: 2, name: 'Carbonara Buldak Ramen', category: 'snack', price: 210, stock: 15 },
-    { id: 3, name: 'Ruchi Chanachur Pack', category: 'snack', price: 50, stock: 60 },
-    { id: 4, name: 'Cup Noodles (Chicken)', category: 'snack', price: 150, stock: 30 },
-    { id: 5, name: 'French Fries (Box)', category: 'snack', price: 100, stock: 20 },
-    { id: 6, name: 'Cold Coffee', category: 'drink', price: 90, stock: 35 },
-    { id: 7, name: 'Lemonade', category: 'drink', price: 40, stock: 50 },
-    { id: 8, name: 'Mango Juice (Bottle)', category: 'drink', price: 60, stock: 40 },
-    { id: 9, name: 'Chocolate Ice-cream Cup', category: 'ice-cream', price: 80, stock: 30 },
-    { id: 10, name: 'Vanilla Ice-cream Stick', category: 'ice-cream', price: 70, stock: 30 },
+    { id: 1, name: 'Nutella Jar (Small)',          category: 'snack',     price: 250, stock: 15 },
+    { id: 2, name: 'Lays Classic Chips Pack',      category: 'snack',     price: 80,  stock: 40 },
+    { id: 3, name: 'Ruchi Chanachur Pack',         category: 'snack',     price: 50,  stock: 60 },
+    { id: 4, name: 'Mr. Noodles Chicken Packet',   category: 'snack',     price: 60,  stock: 35 },
+    { id: 5, name: 'KitKat Chocolate Bar',         category: 'snack',     price: 70,  stock: 30 },
+    { id: 6, name: 'Oreo Biscuit Pack',            category: 'snack',     price: 60,  stock: 40 },
+    { id: 7, name: 'Coca-Cola Can 250ml',          category: 'drink',     price: 50,  stock: 50 },
+    { id: 8, name: 'Sprite Can 250ml',             category: 'drink',     price: 50,  stock: 50 },
+    { id: 9, name: 'Mango Juice Box 200ml',        category: 'drink',     price: 45,  stock: 45 },
+    { id:10, name: 'Chocolate Ice-cream Cup',      category: 'ice-cream', price: 80,  stock: 30 },
+    { id:11, name: 'Vanilla Ice-cream Stick',      category: 'ice-cream', price: 70,  stock: 30 }
   ];
 
+  const defaultAccounts = {
+    stu001: { name: 'Student 001', deposited: 0, spent: 0, history: [] },
+    stu002: { name: 'Student 002', deposited: 0, spent: 0, history: [] },
+  };
+
   function loadItems() {
-    const raw = localStorage.getItem(STORAGE_KEY);
+    const raw = localStorage.getItem(STORAGE_ITEMS_KEY);
     if (!raw) return [...defaultItems];
     try {
       const parsed = JSON.parse(raw);
@@ -635,11 +734,28 @@
     }
   }
 
-  function saveItems(items) {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(items));
+  function saveItems(list) {
+    localStorage.setItem(STORAGE_ITEMS_KEY, JSON.stringify(list));
+  }
+
+  function loadAccounts() {
+    const raw = localStorage.getItem(ACCOUNTS_KEY);
+    if (!raw) return { ...defaultAccounts };
+    try {
+      const parsed = JSON.parse(raw);
+      if (parsed && typeof parsed === 'object') return parsed;
+      return { ...defaultAccounts };
+    } catch {
+      return { ...defaultAccounts };
+    }
+  }
+
+  function saveAccounts(accs) {
+    localStorage.setItem(ACCOUNTS_KEY, JSON.stringify(accs));
   }
 
   let items = loadItems();
+  let accounts = loadAccounts();
 
   /*******************
    * LOGIN SYSTEM
@@ -687,8 +803,7 @@
     }
 
     currentUser = { role: currentRole, username };
-    msgEl.textContent = 'Login successful as ' + currentRole + '.';
-    msgEl.className = 'alert success';
+    msgEl.textContent = '';
     document.getElementById('password').value = '';
 
     showPortal(currentRole);
@@ -710,14 +825,43 @@
     if (role === 'student') {
       document.getElementById('studentPortal').classList.add('active');
       renderCatalog('student');
+      renderStudentAccountSummary();
     } else if (role === 'parent') {
       document.getElementById('parentPortal').classList.add('active');
       renderCatalog('parent');
     } else if (role === 'admin') {
       document.getElementById('adminPortal').classList.add('active');
       renderAdminTable();
+      renderAdminAccountInfo();
     }
   }
+
+  /*******************
+   * CANTEEN OPEN STATUS
+   * Saturday 1:00–1:30 PM
+   *******************/
+  function updateOpenStatus() {
+    const now = new Date();
+    const day = now.getDay(); // 0=Sun ... 6=Sat
+    const minutes = now.getHours() * 60 + now.getMinutes();
+    const start = 13 * 60;
+    const end = 13 * 60 + 30;
+    const isSaturday = (day === 6);
+    const open = isSaturday && minutes >= start && minutes < end;
+
+    const pill = document.getElementById('openStatusPill');
+    if (!pill) return;
+
+    if (open) {
+      pill.textContent = 'Canteen is OPEN now (Saturday, 1:00–1:30 PM).';
+      pill.className = 'status-pill';
+    } else {
+      pill.textContent = 'Canteen next open: Saturday, 1:00–1:30 PM.';
+      pill.className = 'status-pill closed';
+    }
+  }
+  updateOpenStatus();
+  setInterval(updateOpenStatus, 60000);
 
   /*******************
    * CATALOG + CARTS
@@ -777,8 +921,7 @@
     if (!cart[itemId]) cart[itemId] = 0;
     cart[itemId] += 1;
 
-    const totalQtyInCart = cart[itemId];
-    if (totalQtyInCart > item.stock) {
+    if (cart[itemId] > item.stock) {
       cart[itemId] = item.stock;
     }
 
@@ -820,7 +963,7 @@
     btn.className = 'btn btn-primary';
     btn.textContent = 'Place order (demo)';
     btn.addEventListener('click', () => {
-      alert('Order placed (demo only, not connected to real payment). Total: ৳' + total);
+      placeOrder(role, entries, total);
     });
 
     wrapper.innerHTML = '';
@@ -829,11 +972,105 @@
     wrapper.appendChild(btn);
   }
 
+  function placeOrder(role, entries, total) {
+    if (!entries.length) return;
+
+    // Reduce stock
+    entries.forEach(([id, qty]) => {
+      const idx = items.findIndex(i => i.id === Number(id));
+      if (idx !== -1) {
+        items[idx].stock = Math.max(0, items[idx].stock - qty);
+      }
+    });
+    saveItems(items);
+
+    // If student, update his/her account
+    if (role === 'student' && currentUser) {
+      const uname = currentUser.username;
+      if (!accounts[uname]) {
+        accounts[uname] = { name: uname, deposited: 0, spent: 0, history: [] };
+      }
+      const acc = accounts[uname];
+      acc.spent = (acc.spent || 0) + total;
+
+      const orderItems = entries.map(([id, qty]) => {
+        const item = items.find(i => i.id === Number(id));
+        return {
+          id: Number(id),
+          name: item ? item.name : ('Item ' + id),
+          qty,
+          price: item ? item.price : 0
+        };
+      });
+
+      acc.history = acc.history || [];
+      acc.history.push({
+        time: new Date().toISOString(),
+        total,
+        items: orderItems
+      });
+
+      saveAccounts(accounts);
+      renderStudentAccountSummary();
+    }
+
+    alert('Order placed (demo only – no real payment). Total: ৳' + total);
+
+    // Clear cart for that role
+    const cart = role === 'student' ? studentCart : parentCart;
+    Object.keys(cart).forEach(k => delete cart[k]);
+
+    renderCatalog('student');
+    renderCatalog('parent');
+    renderAdminTable();
+  }
+
   /*******************
-   * ADMIN PORTAL
+   * STUDENT ACCOUNT SUMMARY
+   *******************/
+  function renderStudentAccountSummary() {
+    if (!currentUser || currentUser.role !== 'student') return;
+    const uname = currentUser.username;
+    const acc = accounts[uname] || { deposited: 0, spent: 0, history: [] };
+
+    const deposited = acc.deposited || 0;
+    const spent = acc.spent || 0;
+    const remaining = deposited - spent;
+    const due = remaining < 0 ? -remaining : 0;
+
+    document.getElementById('accDeposited').textContent = '৳' + deposited;
+    document.getElementById('accSpent').textContent = '৳' + spent;
+    document.getElementById('accRemaining').textContent = '৳' + (remaining > 0 ? remaining : 0);
+    document.getElementById('accDue').textContent = '৳' + due;
+
+    const historyList = document.getElementById('studentHistoryList');
+    historyList.innerHTML = '';
+
+    if (!acc.history || acc.history.length === 0) {
+      const li = document.createElement('li');
+      li.textContent = 'No orders yet.';
+      historyList.appendChild(li);
+      return;
+    }
+
+    acc.history.slice().reverse().forEach(order => {
+      const li = document.createElement('li');
+      const dt = new Date(order.time);
+      const timeStr = dt.toLocaleString();
+      const itemsStr = (order.items || [])
+        .map(i => `${i.qty}× ${i.name}`)
+        .join(', ');
+      li.textContent = `${timeStr} – ${itemsStr} (৳${order.total})`;
+      historyList.appendChild(li);
+    });
+  }
+
+  /*******************
+   * ADMIN PORTAL – ITEMS
    *******************/
   function renderAdminTable() {
     const tbody = document.querySelector('#adminTable tbody');
+    if (!tbody) return;
     tbody.innerHTML = '';
 
     items.forEach(item => {
@@ -925,8 +1162,16 @@
     e.target.reset();
   });
 
-  // initial render for preview-only (no one logged in)
-  renderCatalog('student');
-</script>
-</body>
-</html>
+  /*******************
+   * ADMIN PORTAL – ACCOUNTS
+   *******************/
+  const accSelect = document.getElementById('accStudentSelect');
+  const accInfo = document.getElementById('accStudentInfo');
+  const accDepositInput = document.getElementById('accDepositAmount');
+  const accDepositBtn = document.getElementById('accDepositBtn');
+
+  function renderAdminAccountInfo() {
+    if (!accSelect) return;
+    const uname = accSelect.value;
+    const acc = accounts[uname] || { deposited: 0, spent: 0, history: [] };
+    const deposited = acc
