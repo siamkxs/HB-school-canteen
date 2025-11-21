@@ -1,0 +1,932 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Haileybury Bhaluka Snack Campaign</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    :root {
+      --hb-maroon: #8b134a;
+      --hb-maroon-dark: #701a3b;
+      --hb-soft: #fdf2f8;
+      --accent: #f97316;
+      --bg: #f3f4f6;
+      --text: #111827;
+      --muted: #6b7280;
+      --radius-lg: 18px;
+      --radius-sm: 10px;
+      --shadow-soft: 0 18px 40px rgba(15, 23, 42, 0.12);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background:
+        radial-gradient(circle at top, #fee2e2 0, #f9fafb 40%, #ffe4e6 100%);
+      color: var(--text);
+      line-height: 1.5;
+    }
+
+    a { text-decoration: none; color: inherit; }
+
+    .page {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 16px 16px 48px;
+      min-height: 100vh;
+    }
+
+    header {
+      background: linear-gradient(135deg, var(--hb-maroon), #ec4899);
+      color: #fdf2f8;
+      border-bottom: 1px solid rgba(248,250,252,0.3);
+      box-shadow: 0 10px 25px rgba(136,19,55,0.4);
+      border-radius: 0 0 18px 18px;
+    }
+
+    .nav-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 12px 16px 16px;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .brand {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+    }
+
+    .brand-logo {
+      width: 46px;
+      height: 46px;
+      border-radius: 999px;
+      background: #f5f5f5;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      color: var(--hb-maroon);
+      font-size: 22px;
+    }
+
+    .brand-text-main {
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      font-size: 18px;
+    }
+
+    .brand-text-sub {
+      font-size: 12px;
+      color: #fee2f2;
+    }
+
+    .addr {
+      font-size: 12px;
+      text-align: right;
+      color: #fee2f2;
+    }
+
+    main { margin-top: 18px; }
+
+    .layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1.1fr) minmax(0, 2fr);
+      gap: 20px;
+      align-items: flex-start;
+    }
+
+    @media (max-width: 900px) {
+      .layout { grid-template-columns: minmax(0, 1fr); }
+      .addr { text-align: left; }
+    }
+
+    /* Left panel: login + info */
+
+    .panel {
+      background: #ffffff;
+      border-radius: var(--radius-lg);
+      padding: 16px 16px 18px;
+      box-shadow: var(--shadow-soft);
+      border: 1px solid rgba(209,213,219,0.9);
+    }
+
+    .panel h2 {
+      font-size: 18px;
+      margin-bottom: 4px;
+    }
+
+    .muted { font-size: 13px; color: var(--muted); }
+
+    .role-tabs {
+      display: flex;
+      margin-top: 12px;
+      border-radius: 999px;
+      background: #f3f4f6;
+      padding: 3px;
+      gap: 4px;
+    }
+
+    .role-tab {
+      flex: 1;
+      font-size: 13px;
+      padding: 6px 8px;
+      border-radius: 999px;
+      border: none;
+      cursor: pointer;
+      background: transparent;
+      color: var(--muted);
+      font-weight: 500;
+      transition: background 0.15s, color 0.15s, transform 0.1s;
+    }
+
+    .role-tab.active {
+      background: #ffffff;
+      color: var(--hb-maroon);
+      transform: translateY(-1px);
+      box-shadow: 0 6px 14px rgba(15,23,42,0.12);
+    }
+
+    form {
+      margin-top: 14px;
+      display: grid;
+      gap: 10px;
+    }
+
+    label {
+      font-size: 12px;
+      font-weight: 500;
+      color: #374151;
+    }
+
+    input, select {
+      width: 100%;
+      border-radius: 10px;
+      border: 1px solid #e5e7eb;
+      padding: 7px 9px;
+      font-size: 13px;
+      outline: none;
+      transition: border 0.15s, box-shadow 0.15s;
+    }
+
+    input:focus, select:focus {
+      border-color: var(--hb-maroon);
+      box-shadow: 0 0 0 1px rgba(136,19,55,0.4);
+    }
+
+    .btn {
+      border-radius: 999px;
+      padding: 8px 14px;
+      font-size: 13px;
+      border: none;
+      cursor: pointer;
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      transition: background 0.15s, box-shadow 0.15s, transform 0.1s;
+    }
+
+    .btn-primary {
+      background: var(--hb-maroon);
+      color: #fef2f2;
+      box-shadow: 0 12px 26px rgba(136,19,55,0.65);
+    }
+
+    .btn-primary:hover {
+      background: var(--hb-maroon-dark);
+      transform: translateY(-1px);
+      box-shadow: 0 16px 34px rgba(136,19,55,0.75);
+    }
+
+    .btn-ghost {
+      background: #f3f4f6;
+      color: #374151;
+    }
+
+    .small-text { font-size: 11px; color: var(--muted); }
+
+    .demo-creds {
+      margin-top: 8px;
+      padding: 8px;
+      border-radius: 10px;
+      background: #f9fafb;
+      border: 1px dashed #e5e7eb;
+      font-size: 11px;
+      color: #4b5563;
+    }
+
+    .demo-creds code {
+      background: #e5e7eb;
+      padding: 1px 4px;
+      border-radius: 4px;
+      font-size: 11px;
+    }
+
+    .alert {
+      margin-top: 6px;
+      font-size: 12px;
+      color: #b91c1c;
+    }
+
+    .alert.success { color: #15803d; }
+
+    /* Right side: portals */
+
+    .portal {
+      background: #ffffff;
+      border-radius: var(--radius-lg);
+      padding: 16px 16px 18px;
+      box-shadow: var(--shadow-soft);
+      border: 1px solid rgba(209,213,219,0.9);
+      display: none;
+    }
+
+    .portal.active { display: block; }
+
+    .portal-header {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      align-items: baseline;
+      margin-bottom: 8px;
+    }
+
+    .portal-header h2 {
+      font-size: 18px;
+    }
+
+    .pill {
+      font-size: 11px;
+      padding: 4px 9px;
+      border-radius: 999px;
+      background: var(--hb-soft);
+      color: var(--hb-maroon-dark);
+      border: 1px solid #fecdd3;
+    }
+
+    .logout-btn {
+      font-size: 11px;
+      cursor: pointer;
+      color: #9ca3af;
+      text-decoration: underline;
+    }
+
+    .catalog {
+      margin-top: 12px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+      gap: 10px;
+    }
+
+    .item-card {
+      border-radius: var(--radius-sm);
+      border: 1px solid #e5e7eb;
+      padding: 10px;
+      font-size: 13px;
+      background: #f9fafb;
+      display: grid;
+      gap: 4px;
+      position: relative;
+    }
+
+    .item-name { font-weight: 600; }
+
+    .item-meta {
+      font-size: 11px;
+      color: var(--muted);
+    }
+
+    .price {
+      font-weight: 700;
+      color: #16a34a;
+      font-size: 13px;
+    }
+
+    .badge {
+      font-size: 10px;
+      padding: 2px 6px;
+      border-radius: 999px;
+      background: #eff6ff;
+      color: #1d4ed8;
+      display: inline-block;
+    }
+
+    .badge.drink { background: #dbf4ff; }
+    .badge.ice { background: #e0f2fe; color: #0369a1; }
+    .badge.snack { background: #fef3c7; color: #92400e; }
+
+    .item-card button {
+      justify-self: flex-start;
+      margin-top: 4px;
+    }
+
+    .item-out {
+      position: absolute;
+      top: 8px;
+      right: 8px;
+      font-size: 10px;
+      padding: 2px 6px;
+      border-radius: 999px;
+      background: #fee2e2;
+      color: #b91c1c;
+    }
+
+    .cart {
+      margin-top: 16px;
+      border-top: 1px dashed #e5e7eb;
+      padding-top: 10px;
+    }
+
+    .cart h3 { font-size: 15px; margin-bottom: 6px; }
+
+    .cart-empty { font-size: 12px; color: var(--muted); }
+
+    .cart-list {
+      list-style: none;
+      font-size: 12px;
+      display: grid;
+      gap: 4px;
+      margin-bottom: 6px;
+    }
+
+    .cart-list span.qty {
+      font-weight: 600;
+    }
+
+    .total {
+      font-size: 13px;
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+
+    /* Admin table */
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 10px;
+      font-size: 12px;
+    }
+
+    th, td {
+      border: 1px solid #e5e7eb;
+      padding: 6px 4px;
+      text-align: left;
+    }
+
+    th {
+      background: #f9fafb;
+      font-weight: 600;
+      font-size: 11px;
+    }
+
+    .tag-instock {
+      font-size: 10px;
+      padding: 2px 6px;
+      border-radius: 999px;
+      background: #dcfce7;
+      color: #166534;
+    }
+
+    .tag-out {
+      font-size: 10px;
+      padding: 2px 6px;
+      border-radius: 999px;
+      background: #fee2e2;
+      color: #b91c1c;
+    }
+
+    .admin-actions button {
+      font-size: 11px;
+      padding: 3px 6px;
+      border-radius: 8px;
+      border: 1px solid #e5e7eb;
+      background: #f9fafb;
+      cursor: pointer;
+    }
+
+    .admin-actions button:hover {
+      background: #eef2ff;
+    }
+
+    .admin-form {
+      margin-top: 10px;
+      padding-top: 10px;
+      border-top: 1px dashed #e5e7eb;
+      display: grid;
+      gap: 8px;
+      font-size: 12px;
+    }
+
+    footer {
+      margin-top: 30px;
+      text-align: center;
+      font-size: 11px;
+      color: #9ca3af;
+    }
+  </style>
+</head>
+<body>
+<header>
+  <div class="nav-inner">
+    <div class="brand">
+      <div class="brand-logo">HB</div>
+      <div>
+        <div class="brand-text-main">Haileybury Bhaluka Snack Campaign</div>
+        <div class="brand-text-sub">Official snack & drinks ordering site</div>
+      </div>
+    </div>
+    <div class="addr">
+      Academic Building, 2nd Floor, Room 227<br>
+      Haileybury Bhaluka
+    </div>
+  </div>
+</header>
+
+<div class="page">
+  <main class="layout">
+    <!-- LEFT: LOGIN -->
+    <section class="panel">
+      <h2>Portal Login</h2>
+      <p class="muted">
+        Choose your role and log in to order snacks or manage items.
+      </p>
+
+      <div class="role-tabs" id="roleTabs">
+        <button class="role-tab active" data-role="student">Student</button>
+        <button class="role-tab" data-role="parent">Parent</button>
+        <button class="role-tab" data-role="admin">Admin</button>
+      </div>
+
+      <form id="loginForm">
+        <div>
+          <label for="username">Username</label>
+          <input id="username" required autocomplete="off">
+        </div>
+        <div>
+          <label for="password">Password</label>
+          <input id="password" type="password" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Log in</button>
+      </form>
+
+      <div class="demo-creds">
+        <strong>Demo usernames & passwords:</strong><br>
+        Student: <code>stu001 / hb123</code>, <code>stu002 / hb123</code><br>
+        Parent: <code>par001 / hb123</code>, <code>par002 / hb123</code><br>
+        Admin: <code>admin / hbadmin</code>
+      </div>
+
+      <div id="loginMsg" class="alert"></div>
+    </section>
+
+    <!-- RIGHT: PORTALS -->
+    <section>
+      <!-- Student portal -->
+      <div id="studentPortal" class="portal">
+        <div class="portal-header">
+          <div>
+            <h2>Student Portal</h2>
+            <p class="muted">
+              Browse snacks, drinks & ice-cream and place your order.
+            </p>
+          </div>
+          <div>
+            <span class="pill">Logged in as Student</span><br>
+            <span class="logout-btn" onclick="logout()">Log out</span>
+          </div>
+        </div>
+
+        <div class="catalog" id="studentCatalog"></div>
+
+        <div class="cart" id="studentCartWrapper">
+          <h3>Your Cart</h3>
+          <div id="studentCartContent"></div>
+        </div>
+      </div>
+
+      <!-- Parent portal -->
+      <div id="parentPortal" class="portal">
+        <div class="portal-header">
+          <div>
+            <h2>Parent Portal</h2>
+            <p class="muted">
+              Order snacks or drinks for your child during the Haileybury campaign.
+            </p>
+          </div>
+          <div>
+            <span class="pill">Logged in as Parent</span><br>
+            <span class="logout-btn" onclick="logout()">Log out</span>
+          </div>
+        </div>
+
+        <div class="catalog" id="parentCatalog"></div>
+
+        <div class="cart" id="parentCartWrapper">
+          <h3>Your Cart</h3>
+          <div id="parentCartContent"></div>
+        </div>
+      </div>
+
+      <!-- Admin portal -->
+      <div id="adminPortal" class="portal">
+        <div class="portal-header">
+          <div>
+            <h2>Admin Portal</h2>
+            <p class="muted">
+              Manage the list of snacks, drinks & ice-cream for the campaign.
+            </p>
+          </div>
+          <div>
+            <span class="pill">Admin Control</span><br>
+            <span class="logout-btn" onclick="logout()">Log out</span>
+          </div>
+        </div>
+
+        <div class="small-text">
+          Items are stored in this browser’s local storage. For real production,
+          this needs a proper database on a server.
+        </div>
+
+        <table id="adminTable">
+          <thead>
+          <tr>
+            <th>Name</th>
+            <th>Category</th>
+            <th>Price (৳)</th>
+            <th>Stock</th>
+            <th>Status</th>
+            <th>Actions</th>
+          </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+
+        <form class="admin-form" id="adminAddForm">
+          <strong>Add / Update Item</strong>
+          <div>
+            <label>Item name</label>
+            <input id="adminItemName" required placeholder="e.g. Nutella Sandwich">
+          </div>
+          <div>
+            <label>Category</label>
+            <select id="adminItemCategory">
+              <option value="snack">Snack</option>
+              <option value="drink">Drink</option>
+              <option value="ice-cream">Ice-cream</option>
+            </select>
+          </div>
+          <div>
+            <label>Price (৳)</label>
+            <input id="adminItemPrice" type="number" min="1" required>
+          </div>
+          <div>
+            <label>Stock quantity</label>
+            <input id="adminItemStock" type="number" min="0" required>
+          </div>
+          <button class="btn btn-primary" type="submit">Add / Update Item</button>
+        </form>
+
+        <div id="adminMsg" class="alert"></div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    Haileybury Bhaluka Snack Campaign – static demo site (front-end only).
+  </footer>
+</div>
+
+<script>
+  /*******************
+   * SIMPLE DATA LAYER
+   *******************/
+
+  const STORAGE_KEY = 'hbSnackItemsV1';
+
+  const defaultItems = [
+    { id: 1, name: 'Nutella Sandwich', category: 'snack', price: 120, stock: 25 },
+    { id: 2, name: 'Carbonara Buldak Ramen', category: 'snack', price: 210, stock: 15 },
+    { id: 3, name: 'Ruchi Chanachur Pack', category: 'snack', price: 50, stock: 60 },
+    { id: 4, name: 'Cup Noodles (Chicken)', category: 'snack', price: 150, stock: 30 },
+    { id: 5, name: 'French Fries (Box)', category: 'snack', price: 100, stock: 20 },
+    { id: 6, name: 'Cold Coffee', category: 'drink', price: 90, stock: 35 },
+    { id: 7, name: 'Lemonade', category: 'drink', price: 40, stock: 50 },
+    { id: 8, name: 'Mango Juice (Bottle)', category: 'drink', price: 60, stock: 40 },
+    { id: 9, name: 'Chocolate Ice-cream Cup', category: 'ice-cream', price: 80, stock: 30 },
+    { id: 10, name: 'Vanilla Ice-cream Stick', category: 'ice-cream', price: 70, stock: 30 },
+  ];
+
+  function loadItems() {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if (!raw) return [...defaultItems];
+    try {
+      const parsed = JSON.parse(raw);
+      return Array.isArray(parsed) ? parsed : [...defaultItems];
+    } catch {
+      return [...defaultItems];
+    }
+  }
+
+  function saveItems(items) {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(items));
+  }
+
+  let items = loadItems();
+
+  /*******************
+   * LOGIN SYSTEM
+   *******************/
+  const users = {
+    student: [
+      { username: 'stu001', password: 'hb123' },
+      { username: 'stu002', password: 'hb123' },
+    ],
+    parent: [
+      { username: 'par001', password: 'hb123' },
+      { username: 'par002', password: 'hb123' },
+    ],
+    admin: [
+      { username: 'admin', password: 'hbadmin' },
+    ],
+  };
+
+  let currentRole = 'student';
+  let currentUser = null;
+
+  const roleTabs = document.querySelectorAll('.role-tab');
+  roleTabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+      roleTabs.forEach(t => t.classList.remove('active'));
+      tab.classList.add('active');
+      currentRole = tab.dataset.role;
+      document.getElementById('loginMsg').textContent = '';
+    });
+  });
+
+  document.getElementById('loginForm').addEventListener('submit', (e) => {
+    e.preventDefault();
+    const username = document.getElementById('username').value.trim();
+    const password = document.getElementById('password').value;
+
+    const list = users[currentRole] || [];
+    const match = list.find(u => u.username === username && u.password === password);
+
+    const msgEl = document.getElementById('loginMsg');
+    if (!match) {
+      msgEl.textContent = 'Incorrect username or password for ' + currentRole + ' portal.';
+      msgEl.className = 'alert';
+      return;
+    }
+
+    currentUser = { role: currentRole, username };
+    msgEl.textContent = 'Login successful as ' + currentRole + '.';
+    msgEl.className = 'alert success';
+    document.getElementById('password').value = '';
+
+    showPortal(currentRole);
+  });
+
+  function logout() {
+    currentUser = null;
+    document.getElementById('studentPortal').classList.remove('active');
+    document.getElementById('parentPortal').classList.remove('active');
+    document.getElementById('adminPortal').classList.remove('active');
+    document.getElementById('loginMsg').textContent = '';
+  }
+
+  function showPortal(role) {
+    document.getElementById('studentPortal').classList.remove('active');
+    document.getElementById('parentPortal').classList.remove('active');
+    document.getElementById('adminPortal').classList.remove('active');
+
+    if (role === 'student') {
+      document.getElementById('studentPortal').classList.add('active');
+      renderCatalog('student');
+    } else if (role === 'parent') {
+      document.getElementById('parentPortal').classList.add('active');
+      renderCatalog('parent');
+    } else if (role === 'admin') {
+      document.getElementById('adminPortal').classList.add('active');
+      renderAdminTable();
+    }
+  }
+
+  /*******************
+   * CATALOG + CARTS
+   *******************/
+  const studentCart = {};
+  const parentCart = {};
+
+  function categoryBadge(cat) {
+    if (cat === 'drink') return '<span class="badge drink">Drink</span>';
+    if (cat === 'ice-cream') return '<span class="badge ice">Ice-cream</span>';
+    return '<span class="badge snack">Snack</span>';
+  }
+
+  function renderCatalog(role) {
+    const targetId = role === 'student' ? 'studentCatalog' : 'parentCatalog';
+    const catalogEl = document.getElementById(targetId);
+    catalogEl.innerHTML = '';
+
+    items.forEach(item => {
+      const div = document.createElement('div');
+      div.className = 'item-card';
+
+      const inStock = item.stock > 0;
+      div.innerHTML = `
+        <div class="item-name">${item.name}</div>
+        <div class="item-meta">
+          ${categoryBadge(item.category)} •
+          <span class="price">৳${item.price}</span>
+        </div>
+        <div class="item-meta">Available stock: ${item.stock}</div>
+      `;
+
+      if (!inStock) {
+        const tag = document.createElement('div');
+        tag.className = 'item-out';
+        tag.textContent = 'Out of stock';
+        div.appendChild(tag);
+      } else {
+        const btn = document.createElement('button');
+        btn.className = 'btn btn-ghost';
+        btn.textContent = 'Add to cart';
+        btn.addEventListener('click', () => addToCart(role, item.id));
+        div.appendChild(btn);
+      }
+
+      catalogEl.appendChild(div);
+    });
+
+    renderCart(role);
+  }
+
+  function addToCart(role, itemId) {
+    const item = items.find(i => i.id === itemId);
+    if (!item || item.stock <= 0) return;
+
+    const cart = role === 'student' ? studentCart : parentCart;
+    if (!cart[itemId]) cart[itemId] = 0;
+    cart[itemId] += 1;
+
+    const totalQtyInCart = cart[itemId];
+    if (totalQtyInCart > item.stock) {
+      cart[itemId] = item.stock;
+    }
+
+    renderCart(role);
+  }
+
+  function renderCart(role) {
+    const cart = role === 'student' ? studentCart : parentCart;
+    const wrapperId = role === 'student' ? 'studentCartContent' : 'parentCartContent';
+    const wrapper = document.getElementById(wrapperId);
+
+    const entries = Object.entries(cart).filter(([id, qty]) => qty > 0);
+    if (entries.length === 0) {
+      wrapper.innerHTML = '<div class="cart-empty">No items in cart yet.</div>';
+      return;
+    }
+
+    let total = 0;
+    const list = document.createElement('ul');
+    list.className = 'cart-list';
+
+    entries.forEach(([id, qty]) => {
+      const item = items.find(i => i.id === Number(id));
+      if (!item) return;
+      const li = document.createElement('li');
+      li.innerHTML = `
+        <span class="qty">${qty}×</span> ${item.name}
+        – ৳${item.price * qty}
+      `;
+      list.appendChild(li);
+      total += item.price * qty;
+    });
+
+    const totalEl = document.createElement('div');
+    totalEl.className = 'total';
+    totalEl.textContent = 'Total: ৳' + total;
+
+    const btn = document.createElement('button');
+    btn.className = 'btn btn-primary';
+    btn.textContent = 'Place order (demo)';
+    btn.addEventListener('click', () => {
+      alert('Order placed (demo only, not connected to real payment). Total: ৳' + total);
+    });
+
+    wrapper.innerHTML = '';
+    wrapper.appendChild(list);
+    wrapper.appendChild(totalEl);
+    wrapper.appendChild(btn);
+  }
+
+  /*******************
+   * ADMIN PORTAL
+   *******************/
+  function renderAdminTable() {
+    const tbody = document.querySelector('#adminTable tbody');
+    tbody.innerHTML = '';
+
+    items.forEach(item => {
+      const tr = document.createElement('tr');
+
+      const status = item.stock > 0
+        ? '<span class="tag-instock">In stock</span>'
+        : '<span class="tag-out">Out of stock</span>';
+
+      tr.innerHTML = `
+        <td>${item.name}</td>
+        <td>${item.category}</td>
+        <td>${item.price}</td>
+        <td>${item.stock}</td>
+        <td>${status}</td>
+        <td class="admin-actions">
+          <button data-id="${item.id}" data-action="edit">Edit</button>
+          <button data-id="${item.id}" data-action="toggle">
+            ${item.stock > 0 ? 'Make 0 stock' : 'Set stock 10'}
+          </button>
+        </td>
+      `;
+
+      tbody.appendChild(tr);
+    });
+
+    tbody.querySelectorAll('button').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const id = Number(btn.dataset.id);
+        const action = btn.dataset.action;
+        if (action === 'edit') preloadItemInForm(id);
+        if (action === 'toggle') toggleStock(id);
+      });
+    });
+  }
+
+  function preloadItemInForm(id) {
+    const item = items.find(i => i.id === id);
+    if (!item) return;
+    document.getElementById('adminItemName').value = item.name;
+    document.getElementById('adminItemCategory').value = item.category;
+    document.getElementById('adminItemPrice').value = item.price;
+    document.getElementById('adminItemStock').value = item.stock;
+  }
+
+  function toggleStock(id) {
+    items = items.map(i => {
+      if (i.id === id) {
+        return { ...i, stock: i.stock > 0 ? 0 : 10 };
+      }
+      return i;
+    });
+    saveItems(items);
+    renderAdminTable();
+    renderCatalog('student');
+    renderCatalog('parent');
+  }
+
+  document.getElementById('adminAddForm').addEventListener('submit', (e) => {
+    e.preventDefault();
+    const name = document.getElementById('adminItemName').value.trim();
+    const category = document.getElementById('adminItemCategory').value;
+    const price = Number(document.getElementById('adminItemPrice').value);
+    const stock = Number(document.getElementById('adminItemStock').value);
+    const msgEl = document.getElementById('adminMsg');
+
+    if (!name || price <= 0 || stock < 0) {
+      msgEl.textContent = 'Please fill all fields with valid values.';
+      msgEl.className = 'alert';
+      return;
+    }
+
+    const existing = items.find(i => i.name.toLowerCase() === name.toLowerCase());
+    if (existing) {
+      existing.category = category;
+      existing.price = price;
+      existing.stock = stock;
+      msgEl.textContent = 'Item updated: ' + name;
+    } else {
+      const newId = items.length ? Math.max(...items.map(i => i.id)) + 1 : 1;
+      items.push({ id: newId, name, category, price, stock });
+      msgEl.textContent = 'Item added: ' + name;
+    }
+    msgEl.className = 'alert success';
+    saveItems(items);
+    renderAdminTable();
+    renderCatalog('student');
+    renderCatalog('parent');
+    e.target.reset();
+  });
+
+  // initial render for preview-only (no one logged in)
+  renderCatalog('student');
+</script>
+</body>
+</html>
